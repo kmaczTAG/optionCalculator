@@ -26,25 +26,6 @@ STOCK_TOOL_URL = "http://localhost:8000"  # Render will route internally; keep s
 
 
 def _call_stock_tool(symbol: str) -> float:
-    """
-    Calls Render’s built‑in `stock` tool (exposed as a local HTTP endpoint)
-    and extracts the current price.
-
-    The tool expects a JSON payload:
-        { "symbol": "<ticker>", "days": null }
-
-    It returns a JSON document that looks like:
-        {
-            "symbol": "ATYR",
-            "price": 12.34,
-            "currency": "USD",
-            "timestamp": "2025-09-27T14:32:10Z",
-            ...
-        }
-
-    If the tool fails or the response shape changes we raise an HTTPException
-    so the API consumer gets a clear 502/500 error.
-    """
     payload = {"symbol": symbol, "days": None}
     try:
         # The stock tool is exposed as a function endpoint inside the same container.
